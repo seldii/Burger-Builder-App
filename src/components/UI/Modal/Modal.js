@@ -1,20 +1,21 @@
-import React from "react";
+import React, { Fragment } from "react";
 import styled from "./Modal.module.css";
+import Backdrop from "../Backdrop/Backdrop";
 
 const Modal = props => {
   return (
-    <div
-      className={styled.Modal}
-      style={{
-        transform: props.show ? "translateY(0)" : "translateY(-100vh)",
-        opacity: props.show ? "1" : "0"
-      }}
-    >
-      <button onClick={props.modalHandler} className={styled.Close}>
-        x
-      </button>
-      {props.children}
-    </div>
+    <Fragment>
+      <Backdrop show={props.show} clicked={props.modalHandler} />
+      <div
+        className={styled.Modal}
+        style={{
+          transform: props.show ? "translateY(0)" : "translateY(-100vh)",
+          opacity: props.show ? "1" : "0"
+        }}
+      >
+        {props.children}
+      </div>
+    </Fragment>
   );
 };
 export default Modal;

@@ -61,8 +61,11 @@ class BurgerBuilder extends Component {
 
     this.setState({ canBeOrdered: sum > 0 });
   };
-  modalHandler = () => {
+  purchaseHandler = () => {
     this.setState({ isModalOpen: !this.state.isModalOpen });
+  };
+  proceedToCheckout = () => {
+    alert("You are being directed to checkout");
   };
   render() {
     //if the amount of the ingredient equals 0 disable the button
@@ -79,10 +82,18 @@ class BurgerBuilder extends Component {
           disabledButtonInfo={disabledButtonInfo}
           totalPrice={this.state.totalPrice}
           canBeOrdered={this.state.canBeOrdered}
-          modalHandler={this.modalHandler}
+          modalHandler={this.purchaseHandler}
         />
-        <Modal show={this.state.isModalOpen} modalHandler={this.modalHandler}>
-          <OrderSummary ingredients={this.state.ingredients}></OrderSummary>
+        <Modal
+          show={this.state.isModalOpen}
+          modalHandler={this.purchaseHandler}
+        >
+          <OrderSummary
+            purchaseHandler={this.purchaseHandler}
+            proceedToCheckout={this.proceedToCheckout}
+            ingredients={this.state.ingredients}
+            totalPrice={this.state.totalPrice}
+          ></OrderSummary>
         </Modal>
       </Fragment>
     );
