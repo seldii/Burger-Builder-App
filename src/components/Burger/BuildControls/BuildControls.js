@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styled from "./BuildControls.module.css";
 import BuildControl from "./BuildControl/BuildControl";
 
@@ -7,7 +6,9 @@ const controls = [
   { label: "Salad", type: "salad" },
   { label: "Patty", type: "patty" },
   { label: "Cheese", type: "cheese" },
-  { label: "Mushroom", type: "mushroom" }
+  { label: "Mushroom", type: "mushroom" },
+  { label: "Pickle", type: "pickle" },
+  { label: "Jalapeno", type: "jalapeno" }
 ];
 
 const BuildControls = props => {
@@ -37,7 +38,5 @@ const BuildControls = props => {
     </div>
   );
 };
-
-BuildControls.propTypes = {};
 
 export default BuildControls;

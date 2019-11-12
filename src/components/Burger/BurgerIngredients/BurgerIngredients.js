@@ -29,6 +29,12 @@ const BurgerIngredients = props => {
     case "mushroom":
       ingredient = <div className={styled.Mushroom}></div>;
       break;
+    case "pickle":
+      ingredient = <div className={styled.Pickle}></div>;
+      break;
+    case "jalapeno":
+      ingredient = <div className={styled.Pickle}></div>;
+      break;
     default:
       ingredient = null;
   }

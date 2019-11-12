@@ -10,10 +10,10 @@ const BuildControl = props => {
         className={styled.Less}
         disabled={props.disabled}
       >
-        Less
+        <p>-</p>
       </button>
       <button onClick={props.add} className={styled.More}>
-        More
+        <p>+</p>
       </button>
     </div>
   );

@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styled from "./Burger.module.css";
 import BurgerIngredients from "./BurgerIngredients/BurgerIngredients";
 
@@ -15,9 +14,7 @@ function Burger(props) {
     .reduce((acc, el) => acc.concat(el));
 
   if (burgerIngredients.length === 0) {
-    burgerIngredients = (
-      <p>Please start adding the ingredients to build your burger!</p>
-    );
+    burgerIngredients = <p>Please start adding the ingredients!</p>;
   }
   return (
     <div className={styled.Burger}>
@@ -27,7 +24,5 @@ function Burger(props) {
     </div>
   );
 }
-
-Burger.propTypes = {};
 
 export default Burger;
