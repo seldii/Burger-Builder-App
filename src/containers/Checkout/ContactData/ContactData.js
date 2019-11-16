@@ -15,8 +15,7 @@ class ContactData extends Component {
           placeholder: "Your Name"
         },
         value: "",
-        validation: { required: true },
-        valid: false
+        config: { validation: { required: true }, valid: false, touched: false }
       },
       email: {
         elementType: "input",
@@ -25,8 +24,7 @@ class ContactData extends Component {
           placeholder: "Your Email"
         },
         value: "",
-        validation: { required: true },
-        valid: false
+        config: { validation: { required: true }, valid: false, touched: false }
       },
       street: {
         elementType: "input",
@@ -35,8 +33,8 @@ class ContactData extends Component {
           placeholder: "Street"
         },
         value: "",
-        validation: { required: true },
-        valid: false
+
+        config: { validation: { required: true }, valid: false, touched: false }
       },
       postCode: {
         elementType: "input",
@@ -45,8 +43,7 @@ class ContactData extends Component {
           placeholder: "PostCode"
         },
         value: "",
-        validation: { required: true },
-        valid: false
+        config: { validation: { required: true }, valid: false, touched: false }
       },
       country: {
         elementType: "input",
@@ -55,25 +52,34 @@ class ContactData extends Component {
           placeholder: "Country"
         },
         value: "",
-        validation: { required: true },
-        valid: false
+        config: { validation: { required: true }, valid: false, touched: false }
       },
       deliveryMethod: {
         elementType: "select",
         elementConfig: {
           options: [
-            { value: "", displayValue: "Select your delievery method" },
+            {
+              value: "",
+              displayValue: "Select your delievery method",
+              disabled: true,
+              selected: true,
+              hidden: true
+            },
             { value: "Green", displayValue: "No Disposable Cutlery" },
             { value: "Bio", displayValue: "Bio" },
             { value: "Fast", displayValue: "Fast (+ $1)" }
           ]
         },
         value: "",
-        validation: { required: true },
-        valid: false
+        config: {
+          validation: { required: true },
+          //Show the validation feedback only if the user start typing
+          touched: false,
+          valid: false
+        }
       }
     },
-
+    formIsValid: false,
     isLoading: false
   };
   orderHandler = e => {
@@ -103,19 +109,25 @@ class ContactData extends Component {
   };
 
   onChangedHandler = (event, inputIdentifier) => {
-    console.log(event.target.value);
     //Change the state immutabely
     const orderForm = { ...this.state.orderForm };
     //Deeply clone the objects inside the orderform object as well
     const updatedElement = { ...orderForm[inputIdentifier] };
     updatedElement.value = event.target.value;
-    updatedElement.valid = this.validationCheck(
+    //Show the validation feedback only if the user start typing through "touched" property
+    updatedElement.config.touched = true;
+    updatedElement.config.valid = this.validationCheck(
       updatedElement.value,
-      updatedElement.validation
+      updatedElement.config.validation
     );
-    console.log(updatedElement);
     orderForm[inputIdentifier] = updatedElement;
-    this.setState({ orderForm });
+    //Check if whole form is valid
+    let formIsValid = true;
+    for (let inputIdentifier in orderForm) {
+      formIsValid = orderForm[inputIdentifier].config.valid && formIsValid;
+    }
+    console.log(formIsValid);
+    this.setState({ orderForm, formIsValid });
   };
 
   validationCheck = (value, rules) => {
@@ -134,12 +146,13 @@ class ContactData extends Component {
         id: key,
         elementType: orderForm[key].elementType,
         elementConfig: orderForm[key].elementConfig,
-        value: orderForm[key].value
+        value: orderForm[key].value,
+        config: orderForm[key].config
       });
     }
 
     let form = (
-      <form>
+      <form onSubmit={this.orderHandler}>
         {formElementArray.map(element => (
           <Input
             key={element.id}
@@ -147,9 +160,11 @@ class ContactData extends Component {
             elementConfig={element.elementConfig}
             value={element.value}
             changed={event => this.onChangedHandler(event, element.id)}
+            invalid={!element.config.valid}
+            touched={element.config.touched}
           />
         ))}
-        <Button buttonType="Success" clicked={e => this.orderHandler(e)}>
+        <Button buttonType="Success" disabled={!this.state.formIsValid}>
           Order
         </Button>
       </form>

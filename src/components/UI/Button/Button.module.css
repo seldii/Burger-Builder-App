@@ -36,3 +36,8 @@
   background-color: #944317;
   color: white;
 }
+
+.Button:disabled {
+  cursor: not-allowed;
+  color: #ccc;
+}
