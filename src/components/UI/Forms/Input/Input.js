@@ -41,13 +41,13 @@ const Input = props => {
           onChange={props.changed}
           className={inputClasses.join(" ")}
           value={props.value}
+          defaultValue={props.defaultValue}
         >
           {props.elementConfig.options.map(o => (
             <option
               key={o.value}
               value={o.value}
               disabled={o.disabled}
-              selected={o.selected}
               hidden={o.hidden}
             >
               {o.displayValue}

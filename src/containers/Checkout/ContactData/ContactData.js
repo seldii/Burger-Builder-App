@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import Button from "../../../components/UI/Button/Button";
 import styled from "./ContactData.module.css";
 import axios from "../../../axios-orders";
@@ -62,7 +63,6 @@ class ContactData extends Component {
               value: "",
               displayValue: "Select your delievery method",
               disabled: true,
-              selected: true,
               hidden: true
             },
             { value: "Green", displayValue: "No Disposable Cutlery" },
@@ -70,6 +70,7 @@ class ContactData extends Component {
             { value: "Fast", displayValue: "Fast (+ $1)" }
           ]
         },
+        defaultValue: "",
         value: "",
         config: {
           validation: { required: true },
@@ -120,13 +121,15 @@ class ContactData extends Component {
       updatedElement.value,
       updatedElement.config.validation
     );
+
+    console.log(["ContactData"], "updatedElement: " + updatedElement.value);
     orderForm[inputIdentifier] = updatedElement;
     //Check if whole form is valid
     let formIsValid = true;
     for (let inputIdentifier in orderForm) {
       formIsValid = orderForm[inputIdentifier].config.valid && formIsValid;
     }
-    console.log(formIsValid);
+    console.log(["ContactData"], "formIsValid: " + formIsValid);
     this.setState({ orderForm, formIsValid });
   };
 
@@ -181,4 +184,8 @@ class ContactData extends Component {
   }
 }
 
-export default ContactData;
+const mapStateToProps = state => {
+  return { ingredients: state.ingrednients, price: state.totalPrice };
+};
+
+export default connect(mapStateToProps)(ContactData);
