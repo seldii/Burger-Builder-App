@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import * as actionTypes from "../../store/actions";
+import * as actionCreators from "../../store/actions/index";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import Modal from "../../components/UI/Modal/Modal";
@@ -11,18 +11,11 @@ import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 
 class BurgerBuilder extends Component {
   state = {
-    isModalOpen: false,
-    isLoading: false,
-    error: false
+    isModalOpen: false
   };
   componentDidMount() {
-    /* axios
-      .get("/ingredients.json")
-      .then(response => {
-        const ingredients = response.data;
-        this.setState({ ingredients });
-      })
-      .catch(err => this.setState({ error: true })); */
+    /* */
+    this.props.initIngredients();
   }
 
   //disable/enable the ORDER button in BurgerControls Component
@@ -75,7 +68,7 @@ class BurgerBuilder extends Component {
         ></OrderSummary>
       );
     }
-    if (this.state.error) {
+    if (this.props.error) {
       burger = (
         <p style={{ textAlign: "center" }}>Ingredients can't be loaded</p>
       );
@@ -102,16 +95,13 @@ class BurgerBuilder extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     onIngredientAdd: ingredientName => {
-      dispatch({
-        type: actionTypes.ADD_INGREDIENT,
-        payload: { ingredientName }
-      });
+      dispatch(actionCreators.addIngredient(ingredientName));
     },
     onIngredientRemove: ingredientName => {
-      dispatch({
-        type: actionTypes.REMOVE_INGREDIENT,
-        payload: { ingredientName }
-      });
+      dispatch(actionCreators.removeIngredient(ingredientName));
+    },
+    initIngredients: () => {
+      dispatch(actionCreators.initIngredients());
     }
   };
 };
@@ -119,7 +109,8 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     ingredients: state.ingredients,
-    totalPrice: state.totalPrice
+    totalPrice: state.totalPrice,
+    error: state.error
   };
 };
 
@@ -127,3 +118,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withErrorHandler(BurgerBuilder, axios));
+
+//handle the error hoc centrally
