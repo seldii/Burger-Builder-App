@@ -24,13 +24,12 @@ export const purchaseBurgerFailed = error => {
 
 export const purchaseBurger = orderData => {
   return dispatch => {
-    purchaseBurgerStart();
+    dispatch(purchaseBurgerStart());
     axios
       .post("/orders.json", orderData)
       .then(response => {
         console.log(response.data);
-        dispatch(purchaseBurgerSuccess(response.data, orderData));
-        this.props.history.push("/");
+        dispatch(purchaseBurgerSuccess(response.data.name, orderData));
       })
       .catch(err => {
         console.log(err);
