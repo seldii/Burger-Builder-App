@@ -18,7 +18,11 @@ class ContactData extends Component {
           placeholder: "Your Name"
         },
         value: "",
-        config: { validation: { required: true }, valid: false, touched: false }
+        config: {
+          validation: { required: true, isEmail: true },
+          valid: false,
+          touched: false
+        }
       },
       email: {
         elementType: "input",
@@ -131,6 +135,10 @@ class ContactData extends Component {
     if (rules.required) {
       //trim to get rid of the white space
       isValid = value.trim() !== "" && isValid; //check the prev state of isValid to make sure that it was true for all the rules
+    }
+    if (rules.isEmail) {
+      const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      isValid = pattern.test(value) && isValid;
     }
     return isValid;
   };
