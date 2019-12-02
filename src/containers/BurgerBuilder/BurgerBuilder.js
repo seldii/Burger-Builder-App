@@ -30,6 +30,9 @@ class BurgerBuilder extends Component {
     this.setState({ isModalOpen: !this.state.isModalOpen });
   };
   proceedToCheckout = () => {
+    //initiate the purchasing
+    this.props.onInitPurchase();
+
     //Redirect to checkout page
     this.props.history.push("/checkout");
   };
@@ -94,15 +97,12 @@ class BurgerBuilder extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onIngredientAdd: ingredientName => {
-      dispatch(actionCreators.addIngredient(ingredientName));
-    },
-    onIngredientRemove: ingredientName => {
-      dispatch(actionCreators.removeIngredient(ingredientName));
-    },
-    initIngredients: () => {
-      dispatch(actionCreators.initIngredients());
-    }
+    onIngredientAdd: ingredientName =>
+      dispatch(actionCreators.addIngredient(ingredientName)),
+    onIngredientRemove: ingredientName =>
+      dispatch(actionCreators.removeIngredient(ingredientName)),
+    initIngredients: () => dispatch(actionCreators.initIngredients()),
+    onInitPurchase: () => dispatch(actionCreators.purchaseInit())
   };
 };
 

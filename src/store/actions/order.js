@@ -37,3 +37,10 @@ export const purchaseBurger = orderData => {
       });
   };
 };
+
+//Redirect when user reload the page
+export const purchaseInit = () => {
+  return {
+    type: actionTypes.PURCHASE_INIT
+  };
+};
