@@ -27,7 +27,14 @@ class BurgerBuilder extends Component {
     return sum > 0;
   };
   purchaseHandler = () => {
-    this.setState({ isModalOpen: !this.state.isModalOpen });
+    if (this.props.isAuthenticated) {
+      this.setState({ isModalOpen: !this.state.isModalOpen });
+    } else {
+      //if the user is not authenticated, simply redirect them to sign in page
+      //and change the authredirectpath to redirect them to checkout after authentication
+      this.props.onSetAuthRedirectPath("/checkout");
+      this.props.history.push("/auth");
+    }
   };
   proceedToCheckout = () => {
     //initiate the purchasing
@@ -58,6 +65,7 @@ class BurgerBuilder extends Component {
             totalPrice={this.props.totalPrice}
             canBeOrdered={this.updateOrderState(this.props.ingredients)}
             modalHandler={this.purchaseHandler}
+            isAuth={this.props.isAuthenticated}
           />
         </Fragment>
       );
@@ -102,7 +110,9 @@ const mapDispatchToProps = dispatch => {
     onIngredientRemove: ingredientName =>
       dispatch(actionCreators.removeIngredient(ingredientName)),
     initIngredients: () => dispatch(actionCreators.initIngredients()),
-    onInitPurchase: () => dispatch(actionCreators.purchaseInit())
+    onInitPurchase: () => dispatch(actionCreators.purchaseInit()),
+    onSetAuthRedirectPath: path =>
+      dispatch(actionCreators.setAuthRedirectPath(path))
   };
 };
 
@@ -110,7 +120,8 @@ const mapStateToProps = state => {
   return {
     ingredients: state.burgerBuilder.ingredients,
     totalPrice: state.burgerBuilder.totalPrice,
-    error: state.burgerBuilder.error
+    error: state.burgerBuilder.error,
+    isAuthenticated: state.auth.token !== null
   };
 };
 
