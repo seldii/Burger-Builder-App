@@ -19,7 +19,7 @@ class ContactData extends Component {
         },
         value: "",
         config: {
-          validation: { required: true, isEmail: true },
+          validation: { required: true },
           valid: false,
           touched: false
         }
@@ -31,7 +31,11 @@ class ContactData extends Component {
           placeholder: "Your Email"
         },
         value: "",
-        config: { validation: { required: true }, valid: false, touched: false }
+        config: {
+          validation: { required: true, isEmail: true },
+          valid: false,
+          touched: false
+        }
       },
       street: {
         elementType: "input",
@@ -103,7 +107,7 @@ class ContactData extends Component {
       orderContactData: orderFormData
     };
 
-    this.props.purchaseBurger(order);
+    this.props.purchaseBurger(order, this.props.token);
   };
 
   onChangedHandler = (event, inputIdentifier) => {
@@ -189,14 +193,15 @@ const mapStateToProps = state => {
   return {
     ingredients: state.burgerBuilder.ingredients,
     price: state.burgerBuilder.totalPrice,
-    loading: state.order.loading
+    loading: state.order.loading,
+    token: state.auth.token
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    purchaseBurger: orderData => {
-      dispatch(actionCreators.purchaseBurger(orderData));
+    purchaseBurger: (orderData, token) => {
+      dispatch(actionCreators.purchaseBurger(orderData, token));
     }
   };
 };
