@@ -5,10 +5,4 @@ export {
 } from "./burgerBuilder";
 export { purchaseBurger, purchaseInit, fetchOrders } from "./order";
 
-export {
-  auth,
-  authSuccess,
-  authFail,
-  logout,
-  setAuthRedirectPath
-} from "./auth";
+export { auth, logout, setAuthRedirectPath, authCheckState } from "./auth";
