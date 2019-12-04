@@ -7,6 +7,7 @@ import Spinner from "../../../components/UI/Spinner/Spinner";
 import Input from "../../../components/UI/Forms/Input/Input";
 import * as actionCreators from "../../../store/actions/index";
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
+import { validationCheck } from "../../../shared/utility";
 
 class ContactData extends Component {
   state = {
@@ -119,7 +120,7 @@ class ContactData extends Component {
     updatedElement.value = event.target.value;
     //Show the validation feedback only if the user start typing through "touched" property
     updatedElement.config.touched = true;
-    updatedElement.config.valid = this.validationCheck(
+    updatedElement.config.valid = validationCheck(
       updatedElement.value,
       updatedElement.config.validation
     );
@@ -135,18 +136,6 @@ class ContactData extends Component {
     this.setState({ orderForm, formIsValid });
   };
 
-  validationCheck = (value, rules) => {
-    let isValid = true;
-    if (rules.required) {
-      //trim to get rid of the white space
-      isValid = value.trim() !== "" && isValid; //check the prev state of isValid to make sure that it was true for all the rules
-    }
-    if (rules.isEmail) {
-      const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      isValid = pattern.test(value) && isValid;
-    }
-    return isValid;
-  };
   render() {
     const { orderForm } = this.state;
     const formElementArray = [];

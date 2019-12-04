@@ -21,7 +21,10 @@ const SideDrawer = props => {
           <Logo />
         </div>
         <nav>
-          <NavigationItems isAuth={props.isAuthenticated} />{" "}
+          <NavigationItems
+            clicked={props.sideDrawerHandler}
+            isAuth={props.isAuthenticated}
+          />{" "}
         </nav>
       </div>
     </Fragment>

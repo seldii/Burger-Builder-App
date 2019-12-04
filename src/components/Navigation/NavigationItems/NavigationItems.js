@@ -4,7 +4,7 @@ import styled from "./NavigationItems.module.css";
 
 const NavigationItems = props => {
   return (
-    <ul className={styled.NavigationItems}>
+    <ul className={styled.NavigationItems} onClick={props.clicked}>
       <NavigationItem link="/" exact>
         Burger Builder
       </NavigationItem>

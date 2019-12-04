@@ -6,6 +6,7 @@ import Button from "../../components/UI/Button/Button";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import styled from "./Auth.module.css";
 import * as actionCreators from "../../store/actions/index";
+import { validationCheck } from "../../shared/utility";
 
 class Auth extends Component {
   state = {
@@ -42,36 +43,13 @@ class Auth extends Component {
     }
   }
 
-  validationCheck = (value, rules) => {
-    let isValid = true;
-    if (!rules) {
-      return true;
-    }
-    if (rules.required) {
-      //trim to get rid of the white space
-      isValid = value.trim() !== "" && isValid; //check the prev state of isValid to make sure that it was true for all the rules
-    }
-    if (rules.isEmail) {
-      const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      isValid = pattern.test(value) && isValid;
-    }
-    if (rules.minLength) {
-      isValid = value.length >= rules.minLength && isValid;
-    }
-    if (rules.isNumeric) {
-      const pattern = /^\+$/;
-      isValid = pattern.test(value) && isValid;
-    }
-    return isValid;
-  };
-
   inputChangeHandler = (event, controlName) => {
     const updatedControls = {
       ...this.state.controls,
       [controlName]: {
         ...this.state.controls[controlName],
         value: event.target.value,
-        valid: this.validationCheck(
+        valid: validationCheck(
           event.target.value,
           this.state.controls[controlName].validation
         ),
