@@ -21,10 +21,23 @@
 
 .Logo {
   height: 80%;
+  display: flex;
+  align-items: center;
+}
+
+.Header {
+  font-family: "Oleo Script", Helvetica, sans-serif;
+  color: wheat;
+  font-size: x-large;
+  font-weight: lighter;
+  margin: 0px 20px;
 }
 
 @media (max-width: 499px) {
   .DesktopOnly {
+    display: none;
+  }
+  .Logo {
     display: none;
   }
 }

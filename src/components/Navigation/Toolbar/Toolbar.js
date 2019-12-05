@@ -10,6 +10,9 @@ const Toolbar = props => {
       <DrawerToggle sideDrawerHandler={props.sideDrawerHandler} />
       <div className={styled.Logo}>
         <Logo />
+        <div className={styled.Header}>
+          <p>Seldii's Vegan Burgers</p>
+        </div>
       </div>
       <nav className={styled.DesktopOnly}>
         <NavigationItems isAuth={props.isAuthenticated} />

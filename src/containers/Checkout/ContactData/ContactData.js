@@ -10,6 +10,10 @@ import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
 import { validationCheck } from "../../../shared/utility";
 
 class ContactData extends Component {
+  constructor(props) {
+    super(props);
+    this.form = React.createRef();
+  }
   state = {
     orderForm: {
       name: {
@@ -93,6 +97,11 @@ class ContactData extends Component {
     },
     formIsValid: false
   };
+
+  componentDidMount() {
+    this.form.current.scrollIntoView({ behavior: "smooth" });
+  }
+
   orderHandler = e => {
     e.preventDefault();
     const orderFormData = {};
@@ -149,7 +158,7 @@ class ContactData extends Component {
     }
 
     let form = (
-      <form onSubmit={this.orderHandler}>
+      <form onSubmit={this.orderHandler} ref={this.form}>
         {formElementArray.map(element => (
           <Input
             key={element.id}

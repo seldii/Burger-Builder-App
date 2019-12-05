@@ -1,6 +1,6 @@
 .SideDrawer {
   position: fixed;
-  background-color: white;
+  background-color: wheat;
   top: 0;
   left: 0;
   width: 70%;
@@ -12,7 +12,13 @@
   box-sizing: border-box;
   transition: transform 0.5s ease-out;
 }
-
+.Header {
+  font-family: "Oleo Script", Helvetica, sans-serif;
+  color: #f08e4a;
+  font-size: large;
+  font-weight: lighter;
+  margin: 0px 20px;
+}
 /*DONOT show at bigger devices*/
 @media (min-width: 500px) {
   .SideDrawer {
@@ -29,6 +35,6 @@
 }
 
 .Logo {
-  height: 11%;
-  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
 }

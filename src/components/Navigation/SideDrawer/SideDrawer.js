@@ -18,7 +18,8 @@ const SideDrawer = props => {
       <Backdrop show={props.show} clicked={props.sideDrawerHandler} />
       <div className={[styled.SideDrawer, styled[status]].join(" ")}>
         <div className={styled.Logo}>
-          <Logo />
+          <Logo height="80%" />
+          <div className={styled.Header}>Seldii's Vegan Burgers</div>
         </div>
         <nav>
           <NavigationItems

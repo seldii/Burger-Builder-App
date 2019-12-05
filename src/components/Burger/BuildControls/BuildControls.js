@@ -14,6 +14,13 @@ const controls = [
 const BuildControls = props => {
   return (
     <div className={styled.BuildControls}>
+      <button
+        onClick={props.modalHandler}
+        disabled={!props.canBeOrdered}
+        className={styled.OrderButton}
+      >
+        {props.isAuth ? "ORDER NOW" : "SIGN IN TO ORDER"}
+      </button>
       <p>
         Current Price: <strong>{props.totalPrice.toFixed(2)}</strong>
       </p>
@@ -28,13 +35,6 @@ const BuildControls = props => {
           />
         );
       })}
-      <button
-        onClick={props.modalHandler}
-        disabled={!props.canBeOrdered}
-        className={styled.OrderButton}
-      >
-        {props.isAuth ? "ORDER NOW" : "SIGN IN TO ORDER"}
-      </button>
     </div>
   );
 };

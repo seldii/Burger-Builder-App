@@ -12,7 +12,7 @@ describe("<BurgerBuilder />", () => {
   beforeEach(() => {
     wrapper = shallow(<BurgerBuilder initIngredients={() => {}} />);
   });
-  it("should <BuildControls /> when receiving ingredients ", () => {
+  it("should <BuildControls /> only when receiving ingredients ", () => {
     wrapper.setProps({ ingredients: null });
     expect(wrapper.find(BurgerControls)).toHaveLength(0);
   });
