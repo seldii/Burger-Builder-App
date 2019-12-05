@@ -8,8 +8,23 @@ import NavigationItem from "./NavigationItem/NavigationItem";
 configure({ adapter: new Adapter() });
 
 describe("<NavigationItems/>", () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallow(<NavigationItems />);
+  });
   it("should render two <NavigationItem /> if not authenticated", () => {
-    const wrapper = shallow(<NavigationItems />);
     expect(wrapper.find(NavigationItem)).toHaveLength(2);
+  });
+  it("should render three <NavigationItem /> if  authenticated", () => {
+    //Use setProps() helper method to sett the isAuth prop
+    wrapper.setProps({ isAuth: true });
+    expect(wrapper.find(NavigationItem)).toHaveLength(3);
+  });
+  it("should render  <NavigationItem /> for Logout if  authenticated", () => {
+    //Use setProps() helper method to sett the isAuth prop
+    wrapper.setProps({ isAuth: true });
+    expect(
+      wrapper.contains(<NavigationItem link="/logout">Log out</NavigationItem>)
+    ).toEqual(true);
   });
 });
