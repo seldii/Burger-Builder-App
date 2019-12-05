@@ -11,7 +11,7 @@ const Toolbar = props => {
       <div className={styled.Logo}>
         <Logo />
         <div className={styled.Header}>
-          <p>Seldii's Vegan Burgers</p>
+          <p>veggieBurger</p>
         </div>
       </div>
       <nav className={styled.DesktopOnly}>

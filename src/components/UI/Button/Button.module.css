@@ -16,14 +16,14 @@
 } */
 
 .Success {
-  border: 1px dashed #5c9210;
-  color: #5c9210;
+  border: 1px dashed #ff5963;
+  color: #ff5963;
 }
 
 .Success:hover,
 .Success:active {
   border: none;
-  background-color: #5c9210;
+  background-color: #ff5963;
   color: white;
 }
 .Danger {

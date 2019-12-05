@@ -19,7 +19,7 @@ const SideDrawer = props => {
       <div className={[styled.SideDrawer, styled[status]].join(" ")}>
         <div className={styled.Logo}>
           <Logo height="80%" />
-          <div className={styled.Header}>Seldii's Vegan Burgers</div>
+          <div className={styled.Header}>veggieBurger</div>
         </div>
         <nav>
           <NavigationItems

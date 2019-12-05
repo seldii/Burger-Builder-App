@@ -12,9 +12,7 @@ const BuildControl = props => {
       >
         <p>-</p>
       </button>
-      <button onClick={props.add} className={styled.More}>
-        <p>+</p>
-      </button>
+      <button onClick={props.add} className={styled.More}></button>
     </div>
   );
 };

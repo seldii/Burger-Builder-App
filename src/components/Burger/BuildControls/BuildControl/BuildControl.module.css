@@ -23,7 +23,7 @@
 }
 
 .BuildControl button:hover:disabled {
-  background-color: #ac9980;
+  background-color: wheat;
   color: #ccc;
   cursor: not-allowed;
 }
@@ -35,13 +35,23 @@
 }
 
 .BuildControl .Less {
-  background-color: #d39952;
-  color: white;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(#fff, #fff), #aa6817;
+  background-position: center;
+  background-size: 50% 2px, 2px 50%; /*thickness = 2px, length = 50% (25px)*/
+  background-repeat: no-repeat;
 }
 
 .BuildControl .More {
-  background-color: #8f5e1e;
-  color: white;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(#fff, #fff), linear-gradient(#fff, #fff), #aa6817;
+  background-position: center;
+  background-size: 50% 2px, 2px 50%; /*thickness = 2px, length = 50% (25px)*/
+  background-repeat: no-repeat;
 }
 
 .BuildControl .Less:hover,
