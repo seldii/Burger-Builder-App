@@ -63,7 +63,7 @@ class Auth extends Component {
     event.preventDefault();
     const { email, password } = this.state.controls;
     const { isSignUp } = this.state;
-    console.log(["isSignUp"], isSignUp);
+
     this.props.onAuth(email.value, password.value, isSignUp);
   };
 

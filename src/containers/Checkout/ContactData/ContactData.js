@@ -125,14 +125,13 @@ class ContactData extends Component {
       updatedElement.config.validation
     );
 
-    console.log(["ContactData"], "updatedElement: " + updatedElement.value);
     orderForm[inputIdentifier] = updatedElement;
     //Check if whole form is valid
     let formIsValid = true;
     for (let inputIdentifier in orderForm) {
       formIsValid = orderForm[inputIdentifier].config.valid && formIsValid;
     }
-    console.log(["ContactData"], "formIsValid: " + formIsValid);
+
     this.setState({ orderForm, formIsValid });
   };
 

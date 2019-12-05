@@ -1,12 +1,7 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import Button from "../../UI/Button/Button";
 
 const OrderSummary = props => {
-  useEffect(() => {
-    return () => {
-      console.log("[OrderSummary] rendering..");
-    };
-  }, []);
   const ingredientSummary = Object.keys(props.ingredients).map((ingKey, i) => {
     return (
       <li key={ingKey + i}>
