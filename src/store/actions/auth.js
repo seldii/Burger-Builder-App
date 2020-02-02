@@ -26,57 +26,33 @@ export const authFail = error => {
 //check timeout of token to og the user out
 
 export const logout = () => {
-  localStorage.removeItem("token");
+  /*  localStorage.removeItem("token");
   localStorage.removeItem("expirationDate");
-  localStorage.removeItem("userId");
+  localStorage.removeItem("userId"); */
+  return {
+    type: actionTypes.AUTH_INITIATE_LOGOUT
+  };
+};
+
+export const logoutSucceed = () => {
   return {
     type: actionTypes.AUTH_LOG_OUT
   };
 };
 export const checkTimeout = expirationTime => {
-  return dispatch => {
-    setTimeout(() => {
-      dispatch(logout());
-    }, expirationTime * 1000);
+  return {
+    type: actionTypes.AUTH_CHECK_TIMEOUT,
+    expirationTime
   };
 };
 
 //connection with the backend *async
 export const auth = (email, password, isSignUp) => {
-  return dispatch => {
-    dispatch(authStart());
-    const authData = {
-      email,
-      password,
-      returnSecureToken: true
-    };
-    console.log(config);
-    let url =
-      "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" +
-      config.apiKey;
-    if (!isSignUp) {
-      url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" +
-        config.apiKey;
-    }
-    axios
-      .post(url, authData)
-      .then(response => {
-        const { idToken, localId, expiresIn } = response.data;
-        const expirationDate = new Date(
-          new Date().getTime() + expiresIn * 1000
-        );
-
-        //store the token in localStorage to persist the aoth state of the user
-        localStorage.setItem("token", idToken);
-        localStorage.setItem("expirationDate", expirationDate);
-        localStorage.setItem("userId", localId);
-        dispatch(authSuccess(idToken, localId));
-        dispatch(checkTimeout(expiresIn));
-      })
-      .catch(err => {
-        dispatch(authFail(err.response.data.error));
-      });
+  return {
+    type: actionTypes.AUTH_USER,
+    email,
+    password,
+    isSignUp
   };
 };
 
