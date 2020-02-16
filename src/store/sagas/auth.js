@@ -3,7 +3,7 @@ import * as actions from "../actions/index";
 import axios from "axios";
 import config from "../../config/config";
 
-export function* logoutSaga(action) {
+export function* logoutSaga() {
   yield localStorage.removeItem("token");
   yield localStorage.removeItem("expirationDate");
   yield localStorage.removeItem("userId");
@@ -43,5 +43,28 @@ export function* authSaga(action) {
     yield put(actions.checkTimeout(expiresIn));
   } catch (err) {
     yield put(actions.authFail(err.response.data.error));
+  }
+}
+
+export function* authCheckStateSaga() {
+  const token = yield localStorage.getItem("token");
+
+  if (!token) {
+    yield put(actions.logout());
+  } else {
+    const expirationDate = yield new Date(
+      localStorage.getItem("expirationDate")
+    );
+    if (expirationDate <= new Date()) {
+      yield put(actions.logout());
+    } else {
+      const userId = yield localStorage.getItem("userId");
+      yield put(actions.authSuccess(token, userId));
+      yield put(
+        actions.checkTimeout(
+          (expirationDate.getTime() - new Date().getTime()) / 1000
+        )
+      );
+    }
   }
 }

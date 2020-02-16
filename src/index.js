@@ -11,7 +11,7 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
-import { watchAuth } from "./store/sagas";
+import { watchAuth, watchBurgerBuilder, watchOrder } from "./store/sagas";
 
 const composeEnhancers =
   (process.env.NODE_ENV === "development"
@@ -32,6 +32,8 @@ const store = createStore(
 );
 
 sagaMiddleware.run(watchAuth);
+sagaMiddleware.run(watchBurgerBuilder);
+sagaMiddleware.run(watchOrder);
 
 ReactDOM.render(
   <Provider store={store}>
